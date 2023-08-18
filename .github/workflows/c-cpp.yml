@@ -18,8 +18,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y cmake qtchooser
-          sudo qtchooser -install qt5 /usr/lib/x86_64-linux-gnu/qt5/bin/qmake qt5
+          sudo apt-get install -y cmake qtbase5-dev
 
       - name: Build project
         run: |
