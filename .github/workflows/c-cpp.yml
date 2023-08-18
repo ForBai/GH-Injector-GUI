@@ -1,0 +1,39 @@
+name: Build GH-Injector-GUI
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Qt
+        uses: jurplel/setup-qt@v3
+        with:
+          version: '5.15.2'
+          components: 'qt5122, qt5142' # Install required components
+
+      - name: Set up CMake
+        uses: cmake/setup-cmake@v1
+
+      - name: Build project
+        run: |
+          mkdir build
+          cd build
+          cmake ..
+          cmake --build .
+
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: GH-Injector-GUI
+          path: build/GH-Injector-GUI
+
