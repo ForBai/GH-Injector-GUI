@@ -15,25 +15,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up Qt
-        uses: jurplel/setup-qt@v3
-        with:
-          version: '5.15.2'
-          components: 'qt5122, qt5142' # Install required components
-
-      - name: Set up CMake
-        uses: cmake/setup-cmake@v1
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake qt5-default
 
       - name: Build project
         run: |
           mkdir build
           cd build
           cmake ..
-          cmake --build .
+          make
 
       - name: Archive artifacts
         uses: actions/upload-artifact@v2
         with:
           name: GH-Injector-GUI
           path: build/GH-Injector-GUI
-
